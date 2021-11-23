@@ -1,13 +1,17 @@
 import { hearManager } from '../client';
 
+import { Start } from './start';
+import { Help } from './help';
 import { Hello } from './hello';
 import { Test } from './test';
-import { Help } from './help';
+import { Info } from './info';
 
 const commands = [
+    Start,
     Help,
     Hello,
-    Test
+    Test,
+    Info
 ];
 
 commands.forEach((Command) => {
