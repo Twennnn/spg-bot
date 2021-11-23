@@ -34,7 +34,6 @@ export class Hello extends Command {
                         command: 'test'
                     }
                 })
-                .inline()
         });
     }
 }
