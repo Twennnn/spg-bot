@@ -1,5 +1,6 @@
-import { Command } from './command';
 import { ButtonColor, Keyboard } from 'vk-io';
+
+import { Command } from './command';
 
 export class Test extends Command {
 
@@ -26,7 +27,6 @@ export class Test extends Command {
                         command: 'test'
                     }
                 })
-                .inline()
         });
     }
 }
