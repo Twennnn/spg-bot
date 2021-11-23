@@ -1,0 +1,24 @@
+{
+  "name": "spgbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --unhandled-rejections=warn --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node -r dotenv/config ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.7.0",
+    "@vk-io/hear": "^1.1.0",
+    "common-tags": "^1.8.1",
+    "discord.js": "^13.3.1",
+    "discord.js-pages": "^1.3.5",
+    "dotenv": "^10.0.0",
+    "vk-io": "^4.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0"
+  }
+}
