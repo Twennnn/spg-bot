@@ -32,6 +32,7 @@ export class Member extends Command {
 
     async execute(interaction) {
         const { value: nickname } = interaction.options.get('nickname', true);
+
         const { discord_id, color = DEFAULT_COLOR } = [...members, ...probation_members]
             .find(({ nickname: memberNickname }) => memberNickname === nickname);
 
