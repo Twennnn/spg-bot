@@ -1,5 +1,6 @@
 import { Command } from './command';
 import { ButtonColor, Keyboard } from 'vk-io';
+import { hyperLink } from '../../utils';
 
 export class Help extends Command {
 
@@ -9,13 +10,13 @@ export class Help extends Command {
 
     execute(context) {
         context.send({
-            message: 'ой я тут тебе помагить пришел',
+            message: `👋 Для работы с ${hyperLink('СПГ - Бот')} вам необходимо выбрать нужную команду на клавиатуре`,
             keyboard: Keyboard.builder()
                 .textButton({
-                    label: 'хеллоу',
+                    label: 'Информация о себе',
                     color: ButtonColor.SECONDARY,
                     payload: {
-                        command: 'hello'
+                        command: 'info'
                     }
                 })
                 .row()
