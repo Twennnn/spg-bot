@@ -1,6 +1,6 @@
 import commonTags from 'common-tags';
-import { MessageActionRow, MessageButton, MessageEmbed, Guild } from 'discord.js';
-import { bold, formatEmoji, inlineCode } from '@discordjs/builders';
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { bold, inlineCode } from '@discordjs/builders';
 
 import { config } from '../../config';
 
@@ -63,7 +63,8 @@ export class Info extends Command {
                             name: `${YOUTUBE} YouTube ${YOUTUBE}`,
                             value: `[Ссылка](${YOUTUBE_CHANNEL_LINK})`,
                             inline: true
-                        },{
+                        },
+                        {
                             name: `${VK} Паблик в ВК ${VK}`,
                             value: `[Ссылка](${VK_PUBLIC_LINK})`,
                             inline: true
@@ -92,10 +93,10 @@ export class Info extends Command {
                 new MessageEmbed()
                     .setTitle('Чёрный список СПГ')
                     .setDescription(stripIndents`
-                        Здесь представлен список людей, которые находятся в чёрном списке города с указанием причины.
+                    Здесь представлен список людей, которые находятся в чёрном списке города с указанием причины.
                         
-                        ${this.serializeList(blacklist)}
-                        `)
+                    ${this.serializeList(blacklist)}
+                    `)
             ])
             .setComponents(
                 new MessageActionRow()
@@ -126,25 +127,25 @@ export class Info extends Command {
                 {
                     name: 'Information',
                     callback: () => {
-                        builder.setPage(1)
+                        builder.setPage(1);
                     }
                 },
                 {
                     name: 'Links',
                     callback: () => {
-                        builder.setPage(2)
+                        builder.setPage(2);
                     }
                 },
                 {
                     name: 'People',
                     callback: () => {
-                        builder.setPage(3)
+                        builder.setPage(3);
                     }
                 },
                 {
                     name: 'BlackList',
                     callback: () => {
-                        builder.setPage(4)
+                        builder.setPage(4);
                     }
                 }
             ])
@@ -155,7 +156,7 @@ export class Info extends Command {
             .setDefaultButtons([])
             .setPaginationFormat('');
 
-            builder.build();
+        builder.build();
     }
 
     serializeList(list) {
@@ -177,6 +178,4 @@ export class Info extends Command {
 
         return size;
     }
-
-
 }
