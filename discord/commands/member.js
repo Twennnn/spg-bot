@@ -1,11 +1,11 @@
 import commonTags from 'common-tags';
-import { MessageEmbed } from 'discord.js';
-import { roleMention } from '@discordjs/builders';
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { bold, hyperlink, roleMention, userMention } from '@discordjs/builders';
 
 import { config } from '../../config';
 
 import { Command } from './command';
-import { DEFAULT_COLOR, buildPlayerAvatarUrl } from '../../utils';
+import { buildPlayerAvatarUrl, SPOTIFY, XPBOTTLE, BREAD, DISCORD } from '../../utils';
 
 const { stripIndents } = commonTags;
 const { members, probation_members } = config;
@@ -33,11 +33,11 @@ export class Member extends Command {
     async execute(interaction) {
         const { value: nickname } = interaction.options.get('nickname', true);
 
-        const { discord_id, color = DEFAULT_COLOR } = [...members, ...probation_members]
+        const { discordId, color, description} = [...members, ...probation_members]
             .find(({ nickname: memberNickname }) => memberNickname === nickname);
 
         const roles = [
-            ...(await interaction.guild.members.fetch(discord_id))
+            ...(await interaction.guild.members.fetch(discordId))
                 .roles
                 .cache
                 .filter(({ name }) => name !== '@everyone')
@@ -46,20 +46,27 @@ export class Member extends Command {
             .map(roleMention)
             .join(' / ');
 
-        interaction.reply({
-            embeds: [
+        const builder = interaction.pagesBuilder()
+            .setPages([
                 new MessageEmbed()
-                    .setTitle(`Информация о жителе:  ${nickname}`)
+                    .setTitle(`Информация о жителе: ${nickname}`)
                     .setDescription(stripIndents`
-                    ${roles}
+                    ${bold('Discord:')} ${userMention(discordId)}
+                    
+                    ${bold('Описание:')} ${description}
+                    
+                    
+                    ${bold('Роли:')} ${roles}
                     
                     `)
-                    .setFields()
-                    .setThumbnail(
-                        buildPlayerAvatarUrl(nickname)
-                    )
-                    .setColor(color)
-            ]
-        });
+            ])
+            .setColor(color)
+            .setThumbnail(
+                buildPlayerAvatarUrl(nickname)
+            )
+            .setDefaultButtons([])
+            .setPaginationFormat('');
+
+        builder.build()
     }
 }
