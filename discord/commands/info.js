@@ -6,9 +6,11 @@ import { config } from '../../config';
 
 import { Command } from './command';
 import {
-    buildCDNUrl,
+    BARRIER,
+    BOOKNQUILL,
+    buildCDNUrl, COOKIE,
     DEFAULT_COLOR,
-    DISCORD_LINK,
+    DISCORD_LINK, EMERALD,
     VK,
     VK_PUBLIC_LINK,
     YOUTUBE,
@@ -105,22 +107,22 @@ export class Info extends Command {
                             .setCustomId('Information')
                             .setStyle('SECONDARY')
                             .setLabel('Информация')
-                            .setEmoji('909460810609344553'),
+                            .setEmoji(`${COOKIE}`),
                         new MessageButton()
                             .setCustomId('Links')
                             .setStyle('SECONDARY')
                             .setLabel('Полезные ссылки')
-                            .setEmoji('909460989966188594'),
+                            .setEmoji(`${EMERALD}`),
                         new MessageButton()
                             .setCustomId('People')
                             .setLabel('Список жителей')
                             .setStyle('SECONDARY')
-                            .setEmoji('909846571443707975'),
+                            .setEmoji(`${BOOKNQUILL}`),
                         new MessageButton()
                             .setCustomId('BlackList')
                             .setLabel('Чёрный список')
                             .setStyle('SECONDARY')
-                            .setEmoji('909844993861120030')
+                            .setEmoji(`${BARRIER}`)
                     ])
             )
             .setTriggers([
