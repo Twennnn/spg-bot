@@ -1,5 +1,6 @@
-import { client, hearManager } from '../client';
-
-client.updates.on('message_new', hearManager.middleware);
-
+import './member';
 import './command';
+import './session';
+import './scene';
+import './hear';
+import './chatKickUser';
