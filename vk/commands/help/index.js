@@ -1,6 +1,6 @@
-import { Command } from './command';
+import { Command } from '../command';
 import { ButtonColor, Keyboard } from 'vk-io';
-import { hyperLink } from '../../utils';
+import { hyperLink } from '../../../utils';
 
 export class Help extends Command {
 
@@ -20,13 +20,6 @@ export class Help extends Command {
                     }
                 })
                 .row()
-                .textButton({
-                    label: 'тест',
-                    color: ButtonColor.SECONDARY,
-                    payload: {
-                        command: 'test'
-                    }
-                })
         });
     }
 }
