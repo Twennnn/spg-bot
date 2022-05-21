@@ -1,7 +1,6 @@
 {
   "name": "spgbot",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -12,13 +11,27 @@
   "dependencies": {
     "@discordjs/builders": "^0.7.0",
     "@vk-io/hear": "^1.1.0",
+    "@vk-io/scenes": "^1.2.0",
+    "@vk-io/session": "^2.1.0",
+    "axios": "^0.27.2",
     "common-tags": "^1.8.1",
     "discord.js": "^13.3.1",
     "discord.js-pages": "^1.3.5",
     "dotenv": "^10.0.0",
+    "mongoose": "^6.3.3",
     "vk-io": "^4.4.0"
   },
   "devDependencies": {
-    "eslint": "^8.1.0"
-  }
+    "eslint": "^8.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Twennnn/spg-bot.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Twennnn/spg-bot/issues"
+  },
+  "homepage": "https://github.com/Twennnn/spg-bot#readme",
+  "description": ""
 }
