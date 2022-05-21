@@ -1,5 +1,6 @@
 {
   "env": {
+    "browser": true,
     "es2021": true
   },
   "extends": [
@@ -9,7 +10,12 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "ignorePatterns": ["*.png", "*.fnt", "*.json"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "ignorePatterns": [
+    "*.json"
+  ],
   "rules": {
     "indent": [
       "error",
@@ -18,10 +24,6 @@
         "SwitchCase": 1
       }
     ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
     "quotes": [
       "error",
       "single"
@@ -29,6 +31,12 @@
     "semi": [
       "error",
       "always"
+    ],
+    "array-callback-return": [
+      "error",
+      {
+        "allowImplicit": true
+      }
     ],
     "curly": [
       "error",
@@ -50,9 +58,6 @@
       1
     ],
     "no-new-wrappers": [
-      "error"
-    ],
-    "no-return-await": [
       "error"
     ],
     "brace-style": [
@@ -94,9 +99,6 @@
     "implicit-arrow-linebreak": [
       "error",
       "beside"
-    ],
-    "new-cap": [
-      "error"
     ],
     "new-parens": [
       "error",
@@ -161,7 +163,7 @@
       "error"
     ],
     "arrow-body-style": [
-      "error",
+      "warn",
       "as-needed",
       {
         "requireReturnForObjectLiteral": false
@@ -207,9 +209,15 @@
     ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "no-async-promise-executor": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "array-callback-return": "off",
-    "@typescript-eslint/no-empty-function": "off"
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "linebreak-style": "off",
+    "no-return-await": "off",
+    "new-cap": "off",
+    "@typescript-eslint/adjacent-overload-signatures": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+    "no-empty": "off"
   }
 }
