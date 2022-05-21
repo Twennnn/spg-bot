@@ -2,16 +2,32 @@ import { hearManager } from '../client';
 
 import { Start } from './start';
 import { Help } from './help';
-import { Hello } from './hello';
-import { Test } from './test';
 import { Info } from './info';
+import { Description, SetDescription } from './description';
+import { Color, SetColor } from './color';
+import { Member, AddMember, DeleteMember } from './member';
+import { Blacklist, AddToBlacklist, DeleteFromBlacklist } from './blacklist';
 
 const commands = [
     Start,
+
     Help,
-    Hello,
-    Test,
-    Info
+
+    Info,
+
+    Description,
+    SetDescription,
+
+    Color,
+    SetColor,
+
+    Member,
+    AddMember,
+    DeleteMember,
+
+    Blacklist,
+    AddToBlacklist,
+    DeleteFromBlacklist
 ];
 
 commands.forEach((Command) => {
