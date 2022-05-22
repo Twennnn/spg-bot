@@ -5,6 +5,7 @@ import { StepScene } from '@vk-io/scenes';
 import { sceneManager } from '../client';
 import { getCurrentNickname } from '../../utils/getCurrentNickname';
 import { hyperLink } from '../../utils';
+import { isCurrentNickname } from '../../utils/isCurrentNickname';
 
 sceneManager.addScenes([
     new StepScene('add_member', {
@@ -30,6 +31,17 @@ sceneManager.addScenes([
 
                 return context.scene.step.next();
             },
+            async (context) => {
+                const { nickname } = context.scene.state;
+
+                if (!(await isCurrentNickname(nickname))) {
+                    context.send('Данный никнейм не найден. Повторите попытку')
+
+                    return context.scene.step.previous();
+                }
+
+                return context.scene.step.next();
+            },
             (context) => {
                 if (context.scene.step.firstTime || !context.text) {
                     return context.send({
@@ -52,6 +64,17 @@ sceneManager.addScenes([
                 return context.scene.step.next();
             },
             (context) => {
+                const { vkId } = context.scene.state;
+
+                if (vkId.toString().length !== 9) {
+                    context.send('Ошибка! ID указан неверно. Попробуйте еще раз');
+
+                    return context.scene.step.previous();
+                }
+
+                return context.scene.step.next();
+            },
+            (context) => {
                 if (context.scene.step.firstTime || !context.text) {
                     return context.send({
                         message: 'Введите id игрока в Дискорде:',
@@ -69,6 +92,17 @@ sceneManager.addScenes([
                 }
 
                 context.scene.state.discordId = String(context.text);
+
+                return context.scene.step.next();
+            },
+            (context) =>{
+                const { discordId } = context.scene.state;
+
+                if (discordId.length !== 18) {
+                    context.send('Ошибка! ID указан неверно. Попробуйте еще раз');
+
+                    return context.scene.step.previous();
+                }
 
                 return context.scene.step.next();
             },
