@@ -2,8 +2,9 @@ import { MessageContext } from 'vk-io';
 
 export class Command {
 
-    constructor(name) {
+    constructor(name, permission = 1) {
         this.name = name;
+        this.permission = permission;
     }
 
     /**
