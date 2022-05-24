@@ -3,22 +3,19 @@ import { MessageActionRow, MessageButton , MessageEmbed, MessageSelectMenu } fro
 import { bold, roleMention } from '@discordjs/builders';
 import { PagesBuilder } from 'discord.js-pages';
 
-import { config } from '../../config';
-
-import { Command } from './command';
+import { Command } from '../command';
 import {
     buildCDNUrl,
     DEFAULT_COLOR,
-    MAYOR_ROLE_ID, MEETING_CHANNEL_ID,
+    MEETING_CHANNEL_ID,
     MEMBERS_ROLE_ID,
     PROBATION_MEMBERS_ROLE_ID,
     VK_CHAT_ID
-} from '../../utils';
-import { client } from '../../vk';
+} from '../../../utils';
+import { client } from '../../../vk';
 import { getRandomId } from 'vk-io';
 
 const { stripIndents } = commonTags;
-const { members, probation_members } = config;
 
 const roles = [
     {
