@@ -3,14 +3,14 @@ import { ButtonColor, Keyboard } from 'vk-io';
 
 import { Command } from '../command';
 
-import { hyperLink } from '../../../utils';
+import { hyperLink } from '../../utils';
 
 const { stripIndents } = commonTags;
 
 export class Color extends Command {
 
     constructor() {
-        super('color');
+        super('color', 3);
     }
 
     execute(context) {
@@ -18,7 +18,7 @@ export class Color extends Command {
             message: stripIndents`
             🌈 ${hyperLink(`Цвет игрока ${context.member.nickname}: `)}
             
-            На данный момент установлен: #AAAAA
+            На данный момент установлен: #${context.member.color}
             `,
             keyboard: Keyboard.builder()
                 .textButton({
