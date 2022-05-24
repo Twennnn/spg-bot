@@ -5,7 +5,7 @@ import { Member } from '../../../db';
 export class SetDescription extends Command {
 
     constructor() {
-        super('set_description');
+        super('set_description', 3);
     }
 
 
