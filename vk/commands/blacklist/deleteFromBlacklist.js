@@ -5,7 +5,7 @@ import { Blacklist } from '../../../db';
 export class DeleteFromBlacklist extends Command {
 
     constructor() {
-        super('delete_from_blacklist');
+        super('delete_from_blacklist', 5);
     }
 
 
