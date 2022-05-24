@@ -1,13 +1,11 @@
 import { client } from '../client';
 
-import { Hello } from './hello';
 import { Info } from './info';
 import { Member } from './member';
 import { Alert } from './alert';
 
 const commands =
     [
-        Hello,
         Info,
         Member,
         Alert
