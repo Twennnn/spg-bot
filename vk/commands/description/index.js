@@ -3,14 +3,14 @@ import { ButtonColor, Keyboard } from 'vk-io';
 
 import { Command } from '../command';
 
-import { hyperLink } from '../../../utils';
+import { hyperLink } from '../../utils';
 
 const { stripIndents } = commonTags;
 
 export class Description extends Command {
 
     constructor() {
-        super('description');
+        super('description', 3);
     }
 
     async execute(context) {
