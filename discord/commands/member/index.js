@@ -1,11 +1,11 @@
 import commonTags from 'common-tags';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
-import { bold, hyperlink, roleMention, userMention } from '@discordjs/builders';
+import { MessageEmbed } from 'discord.js';
+import { bold, roleMention, userMention } from '@discordjs/builders';
 
-import { config } from '../../config';
+import { config } from '../../../config';
 
-import { Command } from './command';
-import { buildPlayerAvatarUrl, SPOTIFY, XPBOTTLE, BREAD, DISCORD } from '../../utils';
+import { Command } from '../command';
+import { buildPlayerAvatarUrl } from '../../../utils';
 
 const { stripIndents } = commonTags;
 const { members, probation_members } = config;
