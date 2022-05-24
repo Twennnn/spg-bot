@@ -2,9 +2,10 @@ import commonTags from 'common-tags';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { bold, inlineCode } from '@discordjs/builders';
 
-import { config } from '../../config';
+import { config } from '../../../config';
+import { countRoleMembers, serializeList } from '../../utils';
 
-import { Command } from './command';
+import { Command } from '../command';
 import {
     BARRIER,
     BOOKNQUILL,
@@ -15,7 +16,7 @@ import {
     VK_PUBLIC_LINK,
     YOUTUBE,
     YOUTUBE_CHANNEL_LINK
-} from '../../utils';
+} from '../../../utils';
 
 const { stripIndents } = commonTags;
 const { member_role_id, probation_member_role_id, overworld_coordinates, hell_coordinates, members, probation_members, blacklist } = config;
@@ -30,8 +31,8 @@ export class Info extends Command {
     }
 
     async execute(interaction) {
-        const membersCount = await this.countRoleMembers(interaction, member_role_id);
-        const probationMembersCount = await this.countRoleMembers(interaction, probation_member_role_id);
+        const membersCount = await countRoleMembers(member_role_id);
+        const probationMembersCount = await countRoleMembers(probation_member_role_id);
 
         const builder = interaction.pagesBuilder()
             .setPages([
@@ -82,12 +83,12 @@ export class Info extends Command {
                     .setFields([
                         {
                             name: 'Жители города:',
-                            value: this.serializeList(members),
+                            value: serializeList(members),
                             inline: true
                         },
                         {
                             name: 'Испытательный срок:',
-                            value: this.serializeList(probation_members),
+                            value: serializeList(probation_members),
                             inline: true
                         }
                     ])
@@ -97,7 +98,7 @@ export class Info extends Command {
                     .setDescription(stripIndents`
                     Здесь представлен список людей, которые находятся в чёрном списке города с указанием причины.
                         
-                    ${this.serializeList(blacklist)}
+                    ${serializeList(blacklist)}
                     `)
             ])
             .setComponents(
@@ -159,25 +160,5 @@ export class Info extends Command {
             .setPaginationFormat('');
 
         builder.build();
-    }
-
-    serializeList(list) {
-        return list.length ?
-            list
-                .map(({ nickname, reason }) => (
-                    `${inlineCode(nickname)}${reason ? ` - ${reason}` : ''}`
-                ))
-                .join('\n')
-            :
-            '-';
-    }
-
-    async countRoleMembers(interaction, roleId) {
-        await interaction.guild.members.fetch();
-
-        const { size } = await interaction.guild.roles.cache.get(roleId)
-            .members;
-
-        return size;
     }
 }
