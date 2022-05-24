@@ -1,12 +1,12 @@
 import { Command } from '../command';
 import { sceneEnter } from '../../utils';
-import { getCurrentNickname } from '../../../utils/getCurrentNickname';
+import { getCurrentNickname } from '../../../utils';
 import { Member } from '../../../db';
 
 export class AddMember extends Command {
 
     constructor() {
-        super('add_member');
+        super('add_member', 10);
     }
 
 
@@ -24,7 +24,7 @@ export class AddMember extends Command {
             nickname: await getCurrentNickname(nickname),
             vkId,
             discordId,
-            probation
+            probation,
         })
         await memberCreate.save();
     }

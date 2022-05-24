@@ -8,7 +8,7 @@ const { stripIndents } = commonTags;
 export class Member extends Command {
 
     constructor() {
-        super('member');
+        super('member', 10);
     }
 
     async execute(context) {

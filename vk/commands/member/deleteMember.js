@@ -5,7 +5,7 @@ import { Member } from '../../../db';
 export class DeleteMember extends Command {
 
     constructor() {
-        super('delete_member');
+        super('delete_member', 10);
     }
 
 
