@@ -3,14 +3,14 @@ import { ButtonColor, Keyboard } from 'vk-io';
 
 import { Command } from '../command';
 import { Blacklist as Blacklistt} from '../../../db';
-import { hyperLink } from '../../../utils';
+import { hyperLink } from '../../utils';
 
 const { stripIndents } = commonTags;
 
 export class Blacklist extends Command {
 
     constructor() {
-        super('blacklist');
+        super('blacklist', 1);
     }
 
     async execute(context) {
