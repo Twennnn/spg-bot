@@ -1,10 +1,10 @@
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { isCurrentNickname } from '../../utils/isCurrentNickname';
+import { isCurrentNickname } from '../../utils';
 import { ButtonColor, Keyboard } from 'vk-io';
-import { hyperLink } from '../../utils';
-import { getCurrentNickname } from '../../utils/getCurrentNickname';
+import { hyperLink } from '../utils';
+import { getCurrentNickname } from '../../utils';
 
 sceneManager.addScenes([
     new StepScene('add_to_blacklist', {

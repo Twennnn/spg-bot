@@ -3,9 +3,9 @@ import { ButtonColor, Keyboard } from 'vk-io';
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { getCurrentNickname } from '../../utils/getCurrentNickname';
-import { hyperLink } from '../../utils';
-import { isCurrentNickname } from '../../utils/isCurrentNickname';
+import { getCurrentNickname } from '../../utils';
+import { hyperLink } from '../utils';
+import { isCurrentNickname } from '../../utils';
 
 sceneManager.addScenes([
     new StepScene('add_member', {

@@ -4,8 +4,8 @@ import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
 import { blacklist } from '../../config';
-import { chunkArray } from '../../utils/chunkArray';
-import { hyperLink } from '../../utils';
+import { chunkArray } from '../../utils';
+import { hyperLink } from '../utils';
 
 sceneManager.addScenes([
     new StepScene('delete_from_blacklist', {

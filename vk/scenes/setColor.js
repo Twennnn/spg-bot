@@ -4,7 +4,8 @@ import { ButtonColor, Keyboard } from 'vk-io';
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { hyperLink } from '../../utils';
+import { hyperLink } from '../utils';
+import { isValidHex } from '../../utils';
 
 const { stripIndents } = commonTags;
 
@@ -20,9 +21,9 @@ sceneManager.addScenes([
             
                         Для установки цвета, отправьте нужный цвет.
             
-                        Например: AAAAA
+                        Например: EA9ACC
             
-                        Выбрать нужный цвет можно на сайте: https://htmlcolorcodes.com/ 
+                        Выбрать нужный цвет можно на сайте: https://htmlcolorcodes.com/
                         `,
                         keyboard: Keyboard.builder()
                             .textButton({
@@ -46,8 +47,8 @@ sceneManager.addScenes([
             (context) => {
                 const { color } = context.scene.state;
 
-                if (color.length !== 5) {
-                    context.send('Ошибка! Неверный формат. Цвет должен состоять из 5 символов')
+                if (isValidHex(color)) {
+                    context.send('Ошибка! Неверный формат цвета. Попробуйте еще раз')
 
                     return context.scene.step.previous();
                 }

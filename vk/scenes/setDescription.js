@@ -4,7 +4,7 @@ import { ButtonColor, Keyboard } from 'vk-io';
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { hyperLink } from '../../utils';
+import { hyperLink } from '../utils';
 
 const { stripIndents } = commonTags;
 
