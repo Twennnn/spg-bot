@@ -5,7 +5,7 @@ import { Member } from '../../../db';
 export class SetColor extends Command {
 
     constructor() {
-        super('set_color');
+        super('set_color', 3);
     }
 
 
