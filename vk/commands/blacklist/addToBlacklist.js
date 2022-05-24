@@ -1,12 +1,12 @@
 import { Command } from '../command';
 import { sceneEnter } from '../../utils';
-import { getCurrentNickname } from '../../../utils/getCurrentNickname';
+import { getCurrentNickname } from '../../../utils';
 import { Blacklist } from '../../../db';
 
 export class AddToBlacklist extends Command {
 
     constructor() {
-        super('add_to_blacklist');
+        super('add_to_blacklist', 5);
     }
 
 
