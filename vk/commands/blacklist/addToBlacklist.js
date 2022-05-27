@@ -1,5 +1,5 @@
 import { Command } from '../command';
-import { sceneEnter } from '../../utils';
+import { hyperLink, sceneEnter } from '../../utils';
 import { getCurrentNickname } from '../../../utils';
 import { Blacklist } from '../../../db';
 
@@ -24,6 +24,9 @@ export class AddToBlacklist extends Command {
             nickname: await getCurrentNickname(nickname),
             reason
         })
-        await addToBlacklist.save();
+        await addToBlacklist.save()
+            .then(() => {
+                context.send(`👤 ${hyperLink(getCurrentNickname(nickname))} успешно добавлен в черный список города`)
+            });
     }
 }
