@@ -3,8 +3,6 @@ import { StepScene } from '@vk-io/scenes';
 import { sceneManager } from '../client';
 import { isCurrentNickname } from '../../utils';
 import { ButtonColor, Keyboard } from 'vk-io';
-import { hyperLink } from '../utils';
-import { getCurrentNickname } from '../../utils';
 
 sceneManager.addScenes([
     new StepScene('add_to_blacklist', {
@@ -71,14 +69,6 @@ sceneManager.addScenes([
                 }
 
                 context.scene.state.reason = context.text;
-
-                return context.scene.step.next();
-            },
-
-            async (context) => {
-                const { nickname } = context.scene.state;
-
-                await context.send(`👤 ${hyperLink(await getCurrentNickname(nickname))} успешно добавлен в черный список города`);
 
                 return context.scene.step.next();
             }
