@@ -3,8 +3,6 @@ import { ButtonColor, Keyboard } from 'vk-io';
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { getCurrentNickname } from '../../utils';
-import { hyperLink } from '../utils';
 import { isCurrentNickname } from '../../utils';
 
 sceneManager.addScenes([
@@ -95,7 +93,7 @@ sceneManager.addScenes([
 
                 return context.scene.step.next();
             },
-            (context) =>{
+            (context) => {
                 const { discordId } = context.scene.state;
 
                 if (discordId.length !== 18) {
@@ -114,13 +112,15 @@ sceneManager.addScenes([
                             .textButton({
                                 label: 'Жителем',
                                 payload: {
-                                    probation: false
+                                    probation: false,
+                                    permission: 3
                                 }
                             })
                             .textButton({
                                 label: 'Испытательным сроком',
                                 payload: {
-                                    probation: true
+                                    probation: true,
+                                    permission: 3
                                 }
                             })
                             .textButton({
@@ -136,27 +136,21 @@ sceneManager.addScenes([
                 }
 
                 context.scene.state.probation = context.messagePayload.probation;
+                context.scene.state.permission = context.messagePayload.permission;
 
                 return context.scene.step.next();
-            },
-
-            async (context) => {
-                const { nickname } = context.scene.state;
-
-                await context.send(`👤 Игрок ${hyperLink(await getCurrentNickname(nickname))} успешно добавлен в базу данных`);
-
-                return context.scene.step.next(); // Automatic exit, since this is the last scene
             }
         ],
         leaveHandler: (context) => {
-            const { resolve, reject, nickname, vkId, discordId, probation } = context.scene.state;
+            const { resolve, reject, nickname, vkId, discordId, probation, permission } = context.scene.state;
 
             if (!context.scene.canceled) {
                 resolve({
                     nickname,
                     vkId,
                     discordId,
-                    probation
+                    probation,
+                    permission
                 });
             } else {
                 reject(
