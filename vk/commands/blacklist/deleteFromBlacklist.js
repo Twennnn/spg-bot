@@ -1,5 +1,5 @@
 import { Command } from '../command';
-import { sceneEnter } from '../../utils';
+import { hyperLink, sceneEnter } from '../../utils';
 import { Blacklist } from '../../../db';
 
 export class DeleteFromBlacklist extends Command {
@@ -20,5 +20,8 @@ export class DeleteFromBlacklist extends Command {
         }
         const { nickname } = payload
         await Blacklist.deleteOne({ nickname })
+            .then(() => {
+                context.send(`👤 Игрок ${hyperLink(nickname)} успешно удален из черного списка`)
+            });
     }
 }
