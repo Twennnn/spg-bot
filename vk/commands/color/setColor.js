@@ -1,6 +1,10 @@
+import commonTags from 'common-tags';
+
 import { Command } from '../command';
-import { sceneEnter } from '../../utils';
+import { hyperLink, sceneEnter } from '../../utils';
 import { Member } from '../../../db';
+
+const { stripIndents } = commonTags;
 
 export class SetColor extends Command {
 
@@ -23,6 +27,14 @@ export class SetColor extends Command {
         await Member.updateOne({ vkId: context.senderId}, {
             color
         })
-            .exec();
+            .exec()
+            .then(() => {
+                context.send(stripIndents`
+                    📝 ${hyperLink(`Цвет игрока ${context.member.nickname} успешно уставновлен! `)}
+            
+                    Ваш новый цвет:
+                    #${color}
+                    `);
+            });
     }
 }
