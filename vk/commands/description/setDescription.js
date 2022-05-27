@@ -1,6 +1,10 @@
+import commonTags from 'common-tags';
+
 import { Command } from '../command';
-import { sceneEnter } from '../../utils';
+import { hyperLink, sceneEnter } from '../../utils';
 import { Member } from '../../../db';
+
+const { stripIndents } = commonTags;
 
 export class SetDescription extends Command {
 
@@ -23,7 +27,15 @@ export class SetDescription extends Command {
         await Member.updateOne({ vkId: context.senderId }, {
             description: description
         })
-            .exec();
+            .exec()
+            .then(() => {
+                context.send(stripIndents`
+                    📝 ${hyperLink(`Описание игрока ${context.member.nickname} успешно установлено! `)}
+            
+                    Ваше новое описание:
+                    ${description}
+                    `);
+            });
 
     }
 }
