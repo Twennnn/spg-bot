@@ -8,3 +8,5 @@ export * from './isCurrentNickname';
 export * from './isValidHex';
 export * from './isValidNickname';
 export * from './permissions';
+export * from './getPermissionRoleName';
+export * from './getProbationRoleName';
