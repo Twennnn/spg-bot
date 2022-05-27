@@ -1,5 +1,5 @@
 import { Command } from '../command';
-import { sceneEnter } from '../../utils';
+import { hyperLink, sceneEnter } from '../../utils';
 import { Member } from '../../../db';
 
 export class DeleteMember extends Command {
@@ -19,6 +19,9 @@ export class DeleteMember extends Command {
             return;
         }
         const { nickname } = payload
-        await Member.deleteOne({ nickname });
+        await Member.deleteOne({ nickname })
+            .then(() => {
+                context.send(`👤 Игрок ${hyperLink(nickname)} успешно удален из базы данных`)
+            });
     }
 }
