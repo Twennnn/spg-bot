@@ -5,7 +5,6 @@ import { StepScene } from '@vk-io/scenes';
 import { sceneManager } from '../client';
 import { members } from '../../config';
 import { chunkArray } from '../../utils';
-import { hyperLink } from '../utils';
 
 sceneManager.addScenes([
     new StepScene('delete_member', {
@@ -48,13 +47,6 @@ sceneManager.addScenes([
                 context.scene.state.nickname = context.text;
 
                 return context.scene.step.next();
-            },
-            async (context) => {
-                const { nickname } = context.scene.state;
-
-                await context.send(`👤 Игрок ${hyperLink(nickname)} успешно удален из базы данных`);
-
-                return context.scene.step.next(); // Automatic exit, since this is the last scene
             }
         ],
         leaveHandler: (context) => {
