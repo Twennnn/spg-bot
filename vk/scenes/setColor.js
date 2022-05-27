@@ -47,24 +47,11 @@ sceneManager.addScenes([
             (context) => {
                 const { color } = context.scene.state;
 
-                if (isValidHex(color)) {
+                if (!isValidHex(color)) {
                     context.send('Ошибка! Неверный формат цвета. Попробуйте еще раз')
 
                     return context.scene.step.previous();
                 }
-
-                return context.scene.step.next();
-            },
-
-            async (context) => {
-                const { color } = context.scene.state;
-
-                await context.send(stripIndents`
-                        📝 ${hyperLink(`Цвет игрока ${context.member.nickname} успешно уставновлен! `)}
-            
-                        Ваш новый цвет:
-                        #${color}
-                        `);
 
                 return context.scene.step.next();
             }
