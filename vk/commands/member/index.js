@@ -32,9 +32,17 @@ export class Member extends Command {
                         command: 'delete_member'
                     }
                 })
+                .textButton({
+                    label: 'Редактировать человека',
+                    color: ButtonColor.SECONDARY,
+                    payload: {
+                        command: 'edit_member'
+                    }
+                })
         });
     }
 }
 
 export * from './addMember';
 export * from './deleteMember';
+export * from './editMember';
