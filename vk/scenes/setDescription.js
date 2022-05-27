@@ -38,19 +38,6 @@ sceneManager.addScenes([
                 context.scene.state.description = String(context.text);
 
                 return context.scene.step.next();
-            },
-
-            async (context) => {
-                const { description } = context.scene.state;
-
-                await context.send(stripIndents`
-                        📝 ${hyperLink(`Описание игрока ${context.member.nickname} успешно установлено! `)}
-            
-                        Ваше новое описание:
-                        ${description}
-                        `);
-
-                return context.scene.step.next(); // Automatic exit, since this is the last scene
             }
         ],
         leaveHandler: (context) => {
