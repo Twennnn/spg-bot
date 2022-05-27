@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { DEFAULT_COLOR } from '../../utils';
+import { DEFAULT_COLOR, getCurrentNickname } from '../../utils';
 import { client } from '../../vk';
 
 const memberSchema = mongoose.Schema({
@@ -44,4 +44,9 @@ export function createUser(id) {
             })
             await createMember.save();
         })
+}
+
+export async function getValueByNickname(nickname, key) {
+    const member = await Member.findOne({ nickname: await getCurrentNickname(nickname) })
+    return member.get(`${key}`)
 }
