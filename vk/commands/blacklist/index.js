@@ -3,7 +3,7 @@ import { ButtonColor, Keyboard } from 'vk-io';
 
 import { Command } from '../command';
 import { Blacklist as Blacklistt} from '../../../db';
-import { hyperLink } from '../../utils';
+import { serializeList } from '../../../discord/utils';
 
 const { stripIndents } = commonTags;
 
@@ -20,7 +20,7 @@ export class Blacklist extends Command {
             message: stripIndents`
                 🔎 Черный список города:
                 
-                ${this.serializeList(blacklist)}
+                ${serializeList(blacklist)}
                 `,
 
             keyboard: Keyboard.builder()
@@ -40,17 +40,6 @@ export class Blacklist extends Command {
                     }
                 })
         });
-    }
-
-    serializeList(list) {
-        return list.length ?
-            list
-                .map(({ nickname, reason }) => (
-                    `${hyperLink(nickname)}${reason ? ` - ${reason}` : ''}`
-                ))
-                .join('\n')
-            :
-            '-';
     }
 }
 
