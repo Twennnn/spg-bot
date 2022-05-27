@@ -1,5 +1,5 @@
 import { Command } from '../command';
-import { sceneEnter } from '../../utils';
+import { hyperLink, sceneEnter } from '../../utils';
 import { getCurrentNickname } from '../../../utils';
 import { Member } from '../../../db';
 
@@ -19,13 +19,17 @@ export class AddMember extends Command {
         if (!payload) {
             return;
         }
-        const { nickname, vkId, discordId, probation } = payload
+        const { nickname, vkId, discordId, probation, permission } = payload
         const memberCreate = new Member({
             nickname: await getCurrentNickname(nickname),
             vkId,
             discordId,
             probation,
+            permission
         })
-        await memberCreate.save();
+        await memberCreate.save()
+            .then(() => {
+                context.send(`👤 Игрок ${hyperLink(getCurrentNickname(nickname))} успешно добавлен в базу данных`)
+            });
     }
 }
