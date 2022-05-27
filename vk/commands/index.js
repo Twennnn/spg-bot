@@ -8,7 +8,7 @@ import { Help } from './help';
 import { Info } from './info';
 import { Description, SetDescription } from './description';
 import { Color, SetColor } from './color';
-import { Member, AddMember, DeleteMember } from './member';
+import { Member, AddMember, DeleteMember, EditMember } from './member';
 import { Blacklist, AddToBlacklist, DeleteFromBlacklist } from './blacklist';
 import { hyperLink } from '../utils';
 import { permissions } from '../../utils';
@@ -31,6 +31,7 @@ const commands = [
     Member,
     AddMember,
     DeleteMember,
+    EditMember,
 
     Blacklist,
     AddToBlacklist,
