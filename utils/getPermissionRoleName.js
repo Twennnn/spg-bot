@@ -1,13 +1,15 @@
 export function getPermissionRoleName(value) {
-    if (value === 3) {
-        return '👩‍🌾 Житель'
-    }
-    if (value === 5) {
-        return '⚔ Модератор'
-    }
-    if (value === 10) {
-        return '⚙ Администратор'
-    } else {
-        return '🎩 Пользователь'
+    switch (value) {
+        case 1:
+            return '🎩 Пользователь'
+
+        case 3:
+            return '👩‍🌾 Житель'
+
+        case  5:
+            return '⚔ Модератор'
+
+        case 10:
+            return '⚙ Администратор'
     }
 }
