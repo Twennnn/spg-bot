@@ -8,10 +8,10 @@ export const blacklist = await Blacklist.find();
 export const config = {
     ..._config,
     members: members.filter(({ probation, permission }) => (
-        probation !== 0 && permission > 1
+        probation === false && permission > 1
     )),
     probation_members: members.filter(({ probation, permission }) =>  (
-        probation === 0 && permission > 1
+        probation === true && permission > 1
     )),
     blacklist: blacklist
 };
