@@ -19,6 +19,19 @@ export class Help extends Command {
                         command: 'info'
                     }
                 })
+                .textButton({
+                    label: 'Чёрный список',
+                    payload: {
+                        command: 'blacklist'
+                    }
+                })
+                .row()
+                .textButton({
+                    label: 'Жители',
+                    payload: {
+                        command: 'member'
+                    }
+                })
                 .row()
         });
     }
