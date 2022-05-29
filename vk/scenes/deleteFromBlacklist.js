@@ -11,8 +11,10 @@ sceneManager.addScenes([
         steps: [
             async (context) => {
                 if (context.scene.step.firstTime || !context.text) {
+                    let index = 0;
                     let isFirstPage = true;
-                    for (const chunkedMembers of chunkArray(blacklist, 6)) {
+                    const chunkedOptionsList = chunkArray(blacklist, 5)
+                    for (const chunkedMembers of chunkedOptionsList) {
                         const keyboard = Keyboard.builder()
                             .inline();
 
@@ -22,14 +24,15 @@ sceneManager.addScenes([
                             })
                                 .row();
                         });
-                        keyboard.textButton({
-                            label: 'Отмена',
-                            color: ButtonColor.NEGATIVE,
-                            payload: {
-                                command: 'help'
-                            }
-                        })
-
+                        if (index === chunkedOptionsList.length - 1) {
+                            keyboard.textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'help'
+                                }
+                            })
+                        }
                         await context.send({
                             message: isFirstPage ?
                                 '🔎 Для того чтобы удалить человека нажмите на его никнейм.'
@@ -41,6 +44,7 @@ sceneManager.addScenes([
                         });
 
                         isFirstPage = false;
+                        index++;
                     }
 
                     return;
