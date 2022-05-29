@@ -25,8 +25,8 @@ export class AddToBlacklist extends Command {
             reason
         })
         await addToBlacklist.save()
-            .then(() => {
-                context.send(`👤 ${hyperLink(getCurrentNickname(nickname))} успешно добавлен в черный список города`)
+            .then(async () => {
+                context.send(`👤 ${hyperLink(await getCurrentNickname(nickname))} успешно добавлен в черный список города`)
             });
     }
 }
