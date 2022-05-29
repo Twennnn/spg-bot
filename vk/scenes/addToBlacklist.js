@@ -1,7 +1,7 @@
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { isCurrentNickname } from '../../utils';
+import { getCurrentNickname, isCurrentNickname, valueInBase } from '../../utils';
 import { ButtonColor, Keyboard } from 'vk-io';
 
 sceneManager.addScenes([
@@ -32,19 +32,12 @@ sceneManager.addScenes([
                 const { nickname } = context.scene.state;
 
                 if (!(await isCurrentNickname(nickname))) {
-                    context.send({
-                        message: 'Данный никнейм не найден. Повторите попытку',
-                        keyboard: Keyboard.builder()
-                            .textButton({
-                                label: 'Отмена',
-                                color: ButtonColor.NEGATIVE,
-                                payload: {
-                                    command: 'help'
-                                }
-                            })
-                            .row()
-                            .inline()
-                    });
+                    context.send('Данный никнейм не найден. Повторите попытку')
+
+                    return context.scene.step.previous();
+                }
+                if (await valueInBase('nickname', await getCurrentNickname(nickname), 'blacklist')) {
+                    context.send('Ошибка! Пользователь уже в чёрном списке. Попробуйте еще раз!')
 
                     return context.scene.step.previous();
                 }
