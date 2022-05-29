@@ -3,7 +3,7 @@ import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { bold, inlineCode } from '@discordjs/builders';
 
 import { config } from '../../../config';
-import { countRoleMembers, serializeList } from '../../utils';
+import { countRoleMembers } from '../../utils';
 
 import { Command } from '../command';
 import {
@@ -11,7 +11,7 @@ import {
     BOOKNQUILL,
     buildCDNUrl, COOKIE,
     DEFAULT_COLOR,
-    DISCORD_LINK, EMERALD,
+    DISCORD_LINK, EMERALD, serializeList,
     VK,
     VK_PUBLIC_LINK,
     YOUTUBE,
