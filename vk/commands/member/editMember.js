@@ -20,7 +20,7 @@ export class EditMember extends Command {
         }
         const { nickname, newNickname, newVkId, newDiscordId, newColor, newDescription, newProbation, newPermission } = payload
         await Member.updateOne({ nickname: await getCurrentNickname(nickname) }, {
-            nickname: newNickname,
+            nickname: await getCurrentNickname(newNickname),
             vkId: newVkId,
             discordId: newDiscordId,
             color: newColor,
