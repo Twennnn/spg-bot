@@ -3,10 +3,17 @@ import { ButtonColor, Keyboard } from 'vk-io';
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { chunkArray, getCurrentNickname, getPermissionRoleName, isCurrentNickname, isValidHex } from '../../utils';
-import { getValueByNickname, Member } from '../../db';
+import {
+    chunkArray,
+    getCurrentNickname,
+    getPermissionRoleName,
+    isCurrentNickname,
+    isValidHex,
+    getProbationRoleName,
+    getValueByNickname
+} from '../../utils';
+import { Member } from '../../db';
 import { hyperLink } from '../utils';
-import { getProbationRoleName } from '../../utils';
 
 const { stripIndents } = commonTags;
 
@@ -47,27 +54,42 @@ sceneManager.addScenes([
             },
             async (context) => {
                 if (context.scene.step.firstTime || typeof context?.messagePayload?.chooseOption === 'undefined') {
+                    let index = 0;
                     let isFirstPage = true;
                     const optionsList = [
-                        {name:'Никнейм',
-                            chooseOption: 'nickname'},
-                        {name: 'ВК id',
-                            chooseOption: 'vkId'},
-                        {name: 'Дискорд id',
-                            chooseOption: 'discordId'},
-                        {name: 'Цвет',
-                            chooseOption: 'color'},
-                        {name: 'Описание',
-                            chooseOption: 'description'},
-                        {name: 'Житель/исп.срок',
-                            chooseOption: 'probation'},
-                        {name: 'Роль',
-                            chooseOption: 'permission'}
+                        {
+                            name:'Никнейм',
+                            chooseOption: 'nickname'
+                        },
+                        {
+                            name: 'ВК id',
+                            chooseOption: 'vkId'
+                        },
+                        {
+                            name: 'Дискорд id',
+                            chooseOption: 'discordId'
+                        },
+                        {
+                            name: 'Цвет',
+                            chooseOption: 'color'
+                        },
+                        {
+                            name: 'Описание',
+                            chooseOption: 'description'
+                        },
+                        {
+                            name: 'Житель/исп.срок',
+                            chooseOption: 'probation'
+                        },
+                        {
+                            name: 'Роль',
+                            chooseOption: 'permission'
+                        }
                     ]
-                    for (const chunkedOptions of chunkArray(optionsList, 6)) {
+                    const chunkedOptionsList = chunkArray(optionsList, 5)
+                    for (const chunkedOptions of chunkedOptionsList) {
                         const keyboard = Keyboard.builder()
                             .inline();
-
                         chunkedOptions.forEach(({ name, chooseOption }) => {
                             keyboard.textButton({
                                 label: name,
@@ -77,7 +99,15 @@ sceneManager.addScenes([
                             })
                                 .row();
                         });
-
+                        if (index === chunkedOptionsList.length - 1) {
+                            keyboard.textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'help'
+                                }
+                            })
+                        }
                         await context.send({
                             message: isFirstPage ?
                                 'Выберите что вы хотите изменить у пользователя:'
@@ -89,6 +119,7 @@ sceneManager.addScenes([
                         });
 
                         isFirstPage = false;
+                        index++;
                     }
 
                     return;
@@ -104,28 +135,47 @@ sceneManager.addScenes([
                 if (context.scene.step.firstTime && chooseOption === 'nickname') {
                     const nowNickname = await getValueByNickname(nickname, 'nickname');
 
-                    return context.send(stripIndents`
+                    return context.send({
+                        message: stripIndents`
                         На данный момент у пользователя установлен никнейм: ${hyperLink(nowNickname)}
                            
                         Введите новый никнейм:
-                        `);
+                        `,
+                        keyboard: Keyboard.builder()
+                            .textButton({
+                                label: 'Оставить текущий',
+                            })
+                            .textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'help'
+                                }
+                            })
+                            .inline()
+                    });
                 }
                 if (!(chooseOption === 'nickname')) {
                     return context.scene.step.next();
                 }
+                if (context.text === 'Оставить текущий') {
+                    context.send('Отлично! Будет оставлен текущий никнейм');
 
-                context.scene.state.newNickname = await getCurrentNickname(context.text);
+                    return context.scene.step.next();
+                }
 
-                return context.scene.step.next();
+                    context.scene.state.newNickname = context.text;
+
+                    return context.scene.step.next();
             },
-            async(context) => {
+            async (context) => {
                 const { newNickname } = context.scene.state;
 
                 if (newNickname){
-                    if (await isCurrentNickname(newNickname)) {
-                        context.send('Никнейм будет установлен')
+                    if (await isCurrentNickname(await getCurrentNickname(newNickname))) {
+                        context.send('Никнейм будет установлен');
                     } else {
-                        context.send('Данный никнейм не найден. Повторите попытку')
+                        context.send('Данный никнейм не найден. Повторите попытку');
 
                         return context.scene.step.previous();
                     }
@@ -139,13 +189,25 @@ sceneManager.addScenes([
                 if (context.scene.step.firstTime && chooseOption === 'vkId') {
                     const nowVkId = await getValueByNickname(nickname, 'vkId');
 
-                    return context.send(stripIndents`
+                    return context.send({
+                        message:stripIndents`
                         На данный момент у пользователя установлен id в ВК: ${hyperLink(nowVkId)}
                            
                         Введите новый id:
-                        `)
+                        `,
+                        keyboard: Keyboard.builder()
+                            .textButton({
+                                label: 'Оставить текущий'
+                            })
+                            .inline()
+                    })
                 }
                 if (chooseOption !== 'vkId') {
+                    return context.scene.step.next();
+                }
+                if (context.text === 'Оставить текущий') {
+                    context.send('Отлично! Будет оставлен текущий ID');
+
                     return context.scene.step.next();
                 }
 
@@ -160,7 +222,7 @@ sceneManager.addScenes([
                     if (newVkId.toString().length === 9) {
                         context.send('ID в ВК будет успешно уставновлено');
                     } else {
-                        context.send('Ошибка! ID указан неверно. Попробуйте еще раз')
+                        context.send('Ошибка! ID указан неверно. Попробуйте еще раз');
 
                         return context.scene.step.previous();
                     }
@@ -174,13 +236,25 @@ sceneManager.addScenes([
                 if (context.scene.step.firstTime && chooseOption === 'discordId') {
                     const nowDiscordId = await getValueByNickname(nickname, 'discordId');
 
-                    return context.send(stripIndents`
+                    return context.send({
+                        message:stripIndents`
                         На данный момент у пользователя установлен ID в Дискорд: ${hyperLink(nowDiscordId)}
                            
                         Введите новый ID в Дискорд :
-                        `);
+                        `,
+                        keyboard: Keyboard.builder()
+                            .textButton({
+                                label: 'Оставить текущий'
+                            })
+                            .inline()
+                    });
                 }
                 if (chooseOption !== 'discordId') {
+                    return context.scene.step.next();
+                }
+                if (context.text === 'Оставить текущий') {
+                    context.send('Отлично! Будет оставлен текущий ID');
+
                     return context.scene.step.next();
                 }
 
@@ -217,10 +291,20 @@ sceneManager.addScenes([
                         
                         Выбрать нужный цвет можно на сайте: https://htmlcolorcodes.com/
                         `,
-                        dont_parse_links: 1
+                        keyboard: Keyboard.builder()
+                            .textButton({
+                                label: 'Оставить текущий'
+                            })
+                            .inline(),
+                        dont_parse_links: 1,
                     })
                 }
                 if (chooseOption !== 'color') {
+                    return context.scene.step.next();
+                }
+                if (context.text === 'Оставить текущий') {
+                    context.send('Отлично! Будет оставлен текущий цвет');
+
                     return context.scene.step.next();
                 }
 
@@ -247,15 +331,27 @@ sceneManager.addScenes([
                 const { chooseOption, nickname } = context.scene.state;
 
                 if (context.scene.step.firstTime && chooseOption === 'description') {
-                    return context.send(stripIndents`
+                    return context.send({
+                        message:stripIndents`
                         На данный момент у пользователя установлен описание:
                         
                         "${await getValueByNickname(nickname, 'description')}"
                         
                         Введите новое описание:
-                        `);
+                        `,
+                        keyboard: Keyboard.builder()
+                            .textButton({
+                                label: 'Оставить текущий'
+                            })
+                            .inline()
+                    });
                 }
                 if (chooseOption !== 'description') {
+                    return context.scene.step.next();
+                }
+                if (context.text === 'Оставить текущий') {
+                    context.send('Отлично! Будет оставлен текущий никнейм');
+
                     return context.scene.step.next();
                 }
 
