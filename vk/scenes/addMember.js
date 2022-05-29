@@ -3,7 +3,7 @@ import { ButtonColor, Keyboard } from 'vk-io';
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { isCurrentNickname } from '../../utils';
+import { getCurrentNickname, isCurrentNickname, valueInBase } from '../../utils';
 
 sceneManager.addScenes([
     new StepScene('add_member', {
@@ -37,6 +37,11 @@ sceneManager.addScenes([
 
                     return context.scene.step.previous();
                 }
+                if (await valueInBase('nickname', await getCurrentNickname(nickname))) {
+                    context.send('Ошибка! Пользователь с таким никнеймом уже есть в базе данных. Попробуйте еще раз!')
+
+                    return context.scene.step.previous();
+                }
 
                 return context.scene.step.next();
             },
@@ -61,11 +66,16 @@ sceneManager.addScenes([
 
                 return context.scene.step.next();
             },
-            (context) => {
+            async (context) => {
                 const { vkId } = context.scene.state;
 
                 if (vkId.toString().length !== 9) {
                     context.send('Ошибка! ID указан неверно. Попробуйте еще раз');
+
+                    return context.scene.step.previous();
+                }
+                if (await valueInBase('vkId', vkId)) {
+                    context.send('Ошибка! Данный id в ВК уже используется другим пользователем. Попробуйте еще раз!')
 
                     return context.scene.step.previous();
                 }
@@ -93,11 +103,16 @@ sceneManager.addScenes([
 
                 return context.scene.step.next();
             },
-            (context) => {
+            async (context) => {
                 const { discordId } = context.scene.state;
 
                 if (discordId.length !== 18) {
                     context.send('Ошибка! ID указан неверно. Попробуйте еще раз');
+
+                    return context.scene.step.previous();
+                }
+                if (await valueInBase('discordId', discordId)) {
+                    context.send('Ошибка! Данный id в дискорд уже используется другим пользователем. Попробуйте еще раз!')
 
                     return context.scene.step.previous();
                 }
