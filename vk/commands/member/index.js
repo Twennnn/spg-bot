@@ -24,7 +24,7 @@ export class Member extends Command {
             `,
             keyboard: Keyboard.builder()
                 .textButton({
-                    label: 'Добавить человека',
+                    label: 'Добавить',
                     color: ButtonColor.SECONDARY,
                     payload: {
                         command: 'add_member'
@@ -32,19 +32,30 @@ export class Member extends Command {
                 })
                 .row()
                 .textButton({
-                    label: 'Удалить человека',
-                    color: ButtonColor.SECONDARY,
-                    payload: {
-                        command: 'delete_member'
-                    }
-                })
-                .textButton({
-                    label: 'Редактировать человека',
+                    label: 'Редактировать',
                     color: ButtonColor.SECONDARY,
                     payload: {
                         command: 'edit_member'
                     }
                 })
+                .row()
+                .textButton({
+                    label: 'Удалить',
+                    color: ButtonColor.SECONDARY,
+                    payload: {
+                        command: 'delete_member'
+                    }
+                })
+                .row()
+                .textButton({
+                    label: 'Отмена',
+                    color: ButtonColor.NEGATIVE,
+                    payload: {
+                        command: 'help'
+                    }
+                })
+                .row()
+                .inline()
         });
     }
 }
