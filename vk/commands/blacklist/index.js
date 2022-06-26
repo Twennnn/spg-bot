@@ -25,20 +25,20 @@ export class Blacklist extends Command {
 
             keyboard: Keyboard.builder()
                 .textButton({
-                    label: 'Добавить в черный список',
+                    label: 'Добавить',
                     color: ButtonColor.SECONDARY,
                     payload: {
                         command: 'add_to_blacklist'
                     }
                 })
-                .row()
                 .textButton({
-                    label: 'Удалить из черного списка',
+                    label: 'Удалить',
                     color: ButtonColor.SECONDARY,
                     payload: {
                         command: 'delete_from_blacklist'
                     }
                 })
+                .inline()
         });
     }
 }
