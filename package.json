@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --unhandled-rejections=warn --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node -r dotenv/config ./index.js"
+    "dev": "node --unhandled-rejections=warn --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node -r dotenv/config ./index.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
