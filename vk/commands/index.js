@@ -3,7 +3,6 @@ import { ButtonColor, Keyboard } from 'vk-io';
 
 import { hearManager } from '../client';
 
-import { Start } from './start';
 import { Help } from './help';
 import { Info } from './info';
 import { Description, SetDescription } from './description';
@@ -16,8 +15,6 @@ import { permissions } from '../../utils';
 const { stripIndents } = commonTags;
 
 const commands = [
-    Start,
-
     Help,
 
     Info,
@@ -63,7 +60,7 @@ commands.forEach((Command) => {
                         label: 'Отмена',
                         color: ButtonColor.NEGATIVE,
                         payload: {
-                            command: 'start'
+                            command: 'help'
                         }
                     })
                     .inline()
