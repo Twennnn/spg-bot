@@ -5,4 +5,5 @@ export function getCurrentNickname(nickname) {
         .then(({ data: { username } }) => {
             return username
         })
+        .catch(() => {})
 }
