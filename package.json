@@ -4,8 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --unhandled-rejections=warn --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node -r dotenv/config ./index.js",
-    "start": "node index.js"
+    "start": "node --unhandled-rejections=warn --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node -r dotenv/config ./index.js"
   },
   "author": "",
   "license": "ISC",
@@ -34,5 +33,8 @@
     "url": "https://github.com/Twennnn/spg-bot/issues"
   },
   "homepage": "https://github.com/Twennnn/spg-bot#readme",
-  "description": ""
+  "description": "",
+  "engines": {
+    "node": "17.1.0"
+  }
 }
