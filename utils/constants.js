@@ -1,5 +1,5 @@
 export const VK_BOT_ID = 'club208820464';
-export const VK_CHAT_ID = 1;
+export const VK_CHAT_ID = 2;
 export const VK_CONVERSATION_ID_OFFSET = 2000000000;
 
 export const YOUTUBE_CHANNEL_LINK = 'https://www.youtube.com/channel/UCiLEhVm2RKhjBJ4m2YmOtKA';
