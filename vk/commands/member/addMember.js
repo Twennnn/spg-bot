@@ -28,8 +28,8 @@ export class AddMember extends Command {
             permission
         })
         await memberCreate.save()
-            .then(() => {
-                context.send(`👤 Игрок ${hyperLink(getCurrentNickname(nickname))} успешно добавлен в базу данных`)
+            .then(async () => {
+                context.send(`👤 Игрок ${hyperLink(await getCurrentNickname(nickname))} успешно добавлен в базу данных!`)
             });
     }
 }
