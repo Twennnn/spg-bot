@@ -16,7 +16,7 @@ sceneManager.addScenes([
                                 label: 'Отмена',
                                 color: ButtonColor.NEGATIVE,
                                 payload: {
-                                    command: 'help'
+                                    command: 'blacklist'
                                 }
                             })
                             .row()

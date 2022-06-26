@@ -29,7 +29,7 @@ sceneManager.addScenes([
                                 label: 'Отмена',
                                 color: ButtonColor.NEGATIVE,
                                 payload: {
-                                    command: 'help'
+                                    command: 'member'
                                 }
                             })
                             .row()
@@ -43,7 +43,6 @@ sceneManager.addScenes([
             },
             async (context) => {
                 const { nickname } = context.scene.state;
-
                 if (!await Member.findOne({ nickname: await getCurrentNickname(nickname) })) {
                     context.send('Ошибка! Пользователя с данным никнеймом нет в базе данных');
 
@@ -104,7 +103,7 @@ sceneManager.addScenes([
                                 label: 'Отмена',
                                 color: ButtonColor.NEGATIVE,
                                 payload: {
-                                    command: 'help'
+                                    command: 'member'
                                 }
                             })
                         }
@@ -145,11 +144,12 @@ sceneManager.addScenes([
                             .textButton({
                                 label: 'Оставить текущий',
                             })
+                            .row()
                             .textButton({
                                 label: 'Отмена',
                                 color: ButtonColor.NEGATIVE,
                                 payload: {
-                                    command: 'help'
+                                    command: 'member'
                                 }
                             })
                             .inline()
@@ -199,6 +199,14 @@ sceneManager.addScenes([
                             .textButton({
                                 label: 'Оставить текущий'
                             })
+                            .row()
+                            .textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'member'
+                                }
+                            })
                             .inline()
                     })
                 }
@@ -245,6 +253,14 @@ sceneManager.addScenes([
                         keyboard: Keyboard.builder()
                             .textButton({
                                 label: 'Оставить текущий'
+                            })
+                            .row()
+                            .textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'member'
+                                }
                             })
                             .inline()
                     });
@@ -295,6 +311,14 @@ sceneManager.addScenes([
                             .textButton({
                                 label: 'Оставить текущий'
                             })
+                            .row()
+                            .textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'member'
+                                }
+                            })
                             .inline(),
                         dont_parse_links: 1,
                     })
@@ -341,7 +365,15 @@ sceneManager.addScenes([
                         `,
                         keyboard: Keyboard.builder()
                             .textButton({
-                                label: 'Оставить текущий'
+                                label: 'Оставить текущее'
+                            })
+                            .row()
+                            .textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'member'
+                                }
                             })
                             .inline()
                     });
@@ -387,6 +419,7 @@ sceneManager.addScenes([
                                     newProbation: false
                                 }
                             })
+                            .row()
                             .textButton({
                                 label: 'Испытательный срок',
                                 payload: {
@@ -394,6 +427,13 @@ sceneManager.addScenes([
                                 }
                             })
                             .row()
+                            .textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'member'
+                                }
+                            })
                             .inline()
                     });
                 }
@@ -455,6 +495,13 @@ sceneManager.addScenes([
                                 }
                             })
                             .row()
+                            .textButton({
+                                label: 'Отмена',
+                                color: ButtonColor.NEGATIVE,
+                                payload: {
+                                    command: 'member'
+                                }
+                            })
                             .inline()
                     });
                 }
@@ -486,13 +533,13 @@ sceneManager.addScenes([
                                     proceed: true
                                 }
                             })
+                            .row()
                             .textButton({
                                 label: 'Нет, сохранить изменения',
                                 payload: {
                                     proceed: false
                                 }
                             })
-                            .row()
                             .inline()
                     })
                 }
