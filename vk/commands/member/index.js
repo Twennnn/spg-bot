@@ -2,8 +2,9 @@ import commonTags from 'common-tags';
 import { ButtonColor, Keyboard } from 'vk-io';
 
 import { Command } from '../command';
-import { Member as Memberr } from '../../../db';
 import { hyperLink } from '../../utils';
+import { countAllMembers } from '../../../utils/index.js';
+import { getListOfMembersInDB } from '../../../utils/getListOfMembersInDB.js';
 
 const { stripIndents } = commonTags;
 
@@ -14,11 +15,12 @@ export class Member extends Command {
     }
 
     async execute(context) {
-        const countAllMembers = await Memberr.find({ probation: { $exists: true }}).count();
 
         context.send({
             message: stripIndents`
             🔎 Жителей в базе данных на данный момент: ${hyperLink(countAllMembers)}
+            
+            ${await getListOfMembersInDB()}
             
             Выбор действий для работы с людьми. Нажмите на одну из кнопок на клавиатуре!
             `,
