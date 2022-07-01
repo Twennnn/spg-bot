@@ -6,8 +6,8 @@ client.on('ready', () => {
     client.user.setPresence({
         status: 'online',
         activities: [{
-            name: 'Самый Перспективный Город',
-            type: 'PLAYING'
+            name: 'за СПГ | /help',
+            type: 'WATCHING'
         }]
     });
 
