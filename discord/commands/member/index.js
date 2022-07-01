@@ -61,6 +61,7 @@ export class Member extends Command {
                     `)
             ])
             .setColor(color)
+            .setListenEndColor(color)
             .setThumbnail(
                 buildPlayerAvatarUrl(nickname)
             )
