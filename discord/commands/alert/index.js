@@ -83,6 +83,7 @@ export class Alert extends Command {
                 buildCDNUrl('icons', interaction.guildId, interaction.guild.icon)
             )
             .setColor(DEFAULT_COLOR)
+            .setListenEndColor(DEFAULT_COLOR)
             .setPaginationFormat('');
 
         builder.setPages([
