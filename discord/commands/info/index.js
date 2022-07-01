@@ -7,7 +7,6 @@ import { countRoleMembers } from '../../utils';
 
 import { Command } from '../command';
 import {
-    BARRIER,
     BOOKNQUILL,
     buildCDNUrl, COOKIE,
     DEFAULT_COLOR,
@@ -37,7 +36,7 @@ export class Info extends Command {
         const builder = interaction.pagesBuilder()
             .setPages([
                 new MessageEmbed()
-                    .setTitle('Немного информации о городе СПГ')
+                    .setTitle('Информация о городе:')
                     .setDescription(stripIndents`
                     ${bold('Самый перспективный город? Это именно про нас!')}
                     Если вам интересны:
@@ -49,7 +48,8 @@ export class Info extends Command {
                             name: 'Координаты города:',
                             value: inlineCode(overworld_coordinates),
                             inline: true
-                        }, {
+                        },
+                        {
                             name: 'Координаты в аду:',
                             value: inlineCode(hell_coordinates),
                             inline: true
@@ -93,13 +93,6 @@ export class Info extends Command {
                         }
                     ])
                     .setFooter('Узнать больше о жителе: /member nickname'),
-                new MessageEmbed()
-                    .setTitle('Чёрный список СПГ')
-                    .setDescription(stripIndents`
-                    Здесь представлен список людей, которые находятся в чёрном списке города с указанием причины.
-                        
-                    ${serializeList(blacklist)}
-                    `)
             ])
             .setComponents(
                 new MessageActionRow()
@@ -108,22 +101,17 @@ export class Info extends Command {
                             .setCustomId('Information')
                             .setStyle('SECONDARY')
                             .setLabel('Информация')
-                            .setEmoji(`${COOKIE}`),
+                            .setEmoji(COOKIE),
                         new MessageButton()
                             .setCustomId('Links')
                             .setStyle('SECONDARY')
                             .setLabel('Полезные ссылки')
-                            .setEmoji(`${EMERALD}`),
+                            .setEmoji(EMERALD),
                         new MessageButton()
                             .setCustomId('People')
                             .setLabel('Список жителей')
                             .setStyle('SECONDARY')
-                            .setEmoji(`${BOOKNQUILL}`),
-                        new MessageButton()
-                            .setCustomId('BlackList')
-                            .setLabel('Чёрный список')
-                            .setStyle('SECONDARY')
-                            .setEmoji(`${BARRIER}`)
+                            .setEmoji(BOOKNQUILL),
                     ])
             )
             .setTriggers([
@@ -144,15 +132,10 @@ export class Info extends Command {
                     callback: () => {
                         builder.setPage(3);
                     }
-                },
-                {
-                    name: 'BlackList',
-                    callback: () => {
-                        builder.setPage(4);
-                    }
                 }
             ])
             .setColor(DEFAULT_COLOR)
+            .setListenEndColor(DEFAULT_COLOR)
             .setThumbnail(
                 buildCDNUrl('icons', interaction.guildId, interaction.guild.icon)
             )
