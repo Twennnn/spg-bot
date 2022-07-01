@@ -1,4 +1,4 @@
-export function buildCDNUrl(endpoint, endpointId, resourceId, format = 'png', size = 512) {
+export function buildCDNUrl(endpoint, endpointId, resourceId, format = 'png', size = 64) {
     const params = new URLSearchParams({
         size
     });
