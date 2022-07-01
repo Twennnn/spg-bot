@@ -38,10 +38,12 @@ export function createUser(id) {
     return client.api.users.get({
         user_id: id
     })
-        .then(async() => {
+        .then(async () => {
             const createMember = new Member({
                 vkId: id
             })
             await createMember.save();
-        })
+
+            return true;
+        });
 }
