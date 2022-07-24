@@ -18,7 +18,7 @@ import {
 } from '../../../utils';
 
 const { stripIndents } = commonTags;
-const { member_role_id, probation_member_role_id, overworld_coordinates, hell_coordinates, members, probation_members, blacklist } = config;
+const { member_role_id, probation_member_role_id, overworld_coordinates, hell_coordinates, members, probation_members } = config;
 
 export class Info extends Command {
 
@@ -140,6 +140,7 @@ export class Info extends Command {
                 buildCDNUrl('icons', interaction.guildId, interaction.guild.icon)
             )
             .setDefaultButtons([])
+            .setListenEndMethod('none')
             .setPaginationFormat('');
 
         builder.build();
