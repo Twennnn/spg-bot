@@ -7,33 +7,38 @@ import { Member } from './member';
 import { Alert } from './alert';
 import { Blacklist } from './blacklist/index.js';
 
-const commands =
-    [
-        Help,
+const commands = [
+    Help,
 
-        Link,
+    Link,
 
-        Info,
+    Info,
 
-        Member,
+    Member,
 
-        Alert,
+    Alert,
 
-        Blacklist
-    ];
+    Blacklist
+];
 
-const applicationCommands = commands.map((Command) => {
-   const command = new Command()
-       .command;
-   const { name } = command;
+export async function installCommands() {
+    const applicationCommands = await Promise.all(
+        commands.map(async (Command) => {
+            const instance = new Command();
 
-   client.commands.set(name, (interaction) => {
-       const command = new Command();
+            await instance?.install?.();
+            const command = instance.command;
+            const { name } = command;
 
-       command.execute(interaction);
-   });
+            client.commands.set(name, (interaction) => {
+                const command = new Command();
 
-   return command;
-});
+                command.execute(interaction);
+            });
 
-client.application.commands.set(applicationCommands);
+            return command;
+        })
+    );
+
+    client.application.commands.set(applicationCommands);
+}
