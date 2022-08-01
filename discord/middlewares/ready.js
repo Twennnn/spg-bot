@@ -1,7 +1,8 @@
 import { client } from '../client';
+import { installCommands } from '../commands/index.js';
 
 client.on('ready', () => {
-    import('../commands');
+    installCommands();
 
     client.user.setPresence({
         status: 'online',
