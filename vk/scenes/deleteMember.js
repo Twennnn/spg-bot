@@ -4,10 +4,7 @@ import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
 import { chunkArray } from '../../utils';
-import { config } from '../../config';
-
-const { members, probation_members } = config;
-const allMembers = members.concat(probation_members);
+import { getAllMembers } from '../../db/index.js';
 
 sceneManager.addScenes([
     new StepScene('delete_member', {
@@ -16,7 +13,7 @@ sceneManager.addScenes([
                 if (context.scene.step.firstTime || !context.text) {
                     let index = 0;
                     let isFirstPage = true;
-                    const chunkedOptionsList = chunkArray(allMembers, 5)
+                    const chunkedOptionsList = chunkArray(await getAllMembers(), 5)
                     for (const chunkedOptions of chunkedOptionsList) {
                         const keyboard = Keyboard.builder()
                             .inline();

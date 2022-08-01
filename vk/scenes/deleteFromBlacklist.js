@@ -3,8 +3,8 @@ import { ButtonColor, Keyboard } from 'vk-io';
 import { StepScene } from '@vk-io/scenes';
 
 import { sceneManager } from '../client';
-import { blacklist } from '../../config';
 import { chunkArray } from '../../utils';
+import { getBlacklist } from '../../db/index.js';
 
 sceneManager.addScenes([
     new StepScene('delete_from_blacklist', {
@@ -13,7 +13,7 @@ sceneManager.addScenes([
                 if (context.scene.step.firstTime || !context.text) {
                     let index = 0;
                     let isFirstPage = true;
-                    const chunkedOptionsList = chunkArray(blacklist, 5)
+                    const chunkedOptionsList = chunkArray(await getBlacklist(), 5)
                     for (const chunkedMembers of chunkedOptionsList) {
                         const keyboard = Keyboard.builder()
                             .inline();
