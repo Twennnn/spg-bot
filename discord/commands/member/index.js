@@ -2,38 +2,39 @@ import commonTags from 'common-tags';
 import { MessageEmbed } from 'discord.js';
 import { bold, roleMention, userMention } from '@discordjs/builders';
 
-import { config } from '../../../config';
-
 import { Command } from '../command';
 import { buildPlayerAvatarUrl } from '../../../utils';
+import { getAllMembers } from '../../../db/index.js';
 
 const { stripIndents } = commonTags;
-const { members, probation_members } = config;
 
 export class Member extends Command {
 
     constructor() {
         super({
             name: 'member',
-            description: 'Получить информацию о жителе города',
-            options: [{
-                type: 'STRING',
-                name: 'nickname',
-                description: 'Имя жителя города',
-                choices: [...config.members, ...config.probation_members]
-                    .map(({ nickname }) => ({
-                        name: nickname,
-                        value: nickname
-                    })),
-                required: true
-            }]
+            description: 'Получить информацию о жителе города'
         });
+    }
+
+    async install() {
+        this.command.options = [{
+            type: 'STRING',
+            name: 'nickname',
+            description: 'Имя жителя города',
+            choices: (await getAllMembers())
+                .map(({ nickname }) => ({
+                    name: nickname,
+                    value: nickname
+                })),
+            required: true
+        }];
     }
 
     async execute(interaction) {
         const { value: nickname } = interaction.options.get('nickname', true);
 
-        const { discordId, color, description} = [...members, ...probation_members]
+        const { discordId, color, description} = (await getAllMembers())
             .find(({ nickname: memberNickname }) => memberNickname === nickname);
 
         const roles = [
