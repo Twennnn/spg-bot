@@ -13,4 +13,3 @@ export * from './getProbationRoleName';
 export * from './valueInBase';
 export * from './serializeList';
 export * from './getValueByNickname';
-export * from './countAllMembers.js';
