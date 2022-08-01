@@ -3,7 +3,6 @@ import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { bold, inlineCode } from '@discordjs/builders';
 
 import { config } from '../../../config';
-import { countRoleMembers } from '../../utils';
 
 import { Command } from '../command';
 import {
@@ -16,9 +15,15 @@ import {
     YOUTUBE,
     YOUTUBE_CHANNEL_LINK
 } from '../../../utils';
+import {
+    countMembers,
+    countProbationMembers,
+    getMembers,
+    getProbationMembers
+} from '../../../db/index.js';
 
 const { stripIndents } = commonTags;
-const { member_role_id, probation_member_role_id, overworld_coordinates, hell_coordinates, members, probation_members } = config;
+const { overworld_coordinates, hell_coordinates } = config;
 
 export class Info extends Command {
 
@@ -30,8 +35,10 @@ export class Info extends Command {
     }
 
     async execute(interaction) {
-        const membersCount = await countRoleMembers(member_role_id);
-        const probationMembersCount = await countRoleMembers(probation_member_role_id);
+        const membersCount = await countMembers();
+        const probationMembersCount = await countProbationMembers();
+        const members = await getMembers();
+        const probationMembers = await getProbationMembers();
 
         const builder = interaction.pagesBuilder()
             .setPages([
@@ -88,7 +95,7 @@ export class Info extends Command {
                         },
                         {
                             name: 'Испытательный срок:',
-                            value: serializeList(probation_members),
+                            value: serializeList(probationMembers),
                             inline: true
                         }
                     ])
