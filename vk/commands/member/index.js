@@ -3,8 +3,8 @@ import { ButtonColor, Keyboard } from 'vk-io';
 
 import { Command } from '../command';
 import { hyperLink } from '../../utils';
-import { countAllMembers } from '../../../utils/index.js';
 import { getListOfMembersInDB } from '../../../utils/getListOfMembersInDB.js';
+import { countAllMembers } from '../../../db/index.js';
 
 const { stripIndents } = commonTags;
 
@@ -18,7 +18,7 @@ export class Member extends Command {
 
         context.send({
             message: stripIndents`
-            🔎 Жителей в базе данных на данный момент: ${hyperLink(countAllMembers)}
+            🔎 Жителей в базе данных на данный момент: ${hyperLink(await countAllMembers())}
             
             ${await getListOfMembersInDB()}
             
