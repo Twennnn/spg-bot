@@ -47,3 +47,58 @@ export function createUser(id) {
             return true;
         });
 }
+
+export function getMembers() {
+    return Member.find({
+        probation: false,
+        permission: {
+            $gt: 1
+        }
+    });
+}
+
+export function getProbationMembers() {
+    return Member.find({
+        probation: true,
+        permission: {
+            $gt: 1
+        }
+    });
+}
+
+export function getAllMembers() {
+    return Member.find({
+        permission: {
+            $gt: 1
+        }
+    });
+}
+
+export function countMembers() {
+    return Member.find({
+        probation: false,
+        permission: {
+            $gt: 1
+        }
+    })
+        .count();
+}
+
+export function countProbationMembers() {
+    return Member.find({
+        probation: true,
+        permission: {
+            $gt: 1
+        }
+    })
+        .count();
+}
+
+export function countAllMembers() {
+    return Member.find({
+        permission: {
+            $gt: 1
+        }
+    })
+        .count();
+}

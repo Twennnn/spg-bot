@@ -7,3 +7,7 @@ const blacklistSchema = mongoose.Schema({
     versionKey: false
 });
 export const Blacklist = mongoose.model('Blacklist', blacklistSchema, 'blacklist');
+
+export function getBlacklist() {
+    return Blacklist.find()
+}
