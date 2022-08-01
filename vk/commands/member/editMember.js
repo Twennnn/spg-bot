@@ -2,6 +2,7 @@ import { Command } from '../command';
 import { sceneEnter } from '../../utils';
 import { Member } from '../../../db';
 import { getCurrentNickname } from '../../../utils';
+import { installCommands } from '../../../discord/commands/index.js';
 
 export class EditMember extends Command {
 
@@ -34,5 +35,6 @@ export class EditMember extends Command {
                     message: 'Изменения успешно сохранены!'
                 });
             });
+        installCommands()
     }
 }

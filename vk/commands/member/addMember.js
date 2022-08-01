@@ -2,6 +2,7 @@ import { Command } from '../command';
 import { hyperLink, sceneEnter } from '../../utils';
 import { getCurrentNickname } from '../../../utils';
 import { Member } from '../../../db';
+import { installCommands } from '../../../discord/commands/index.js';
 
 export class AddMember extends Command {
 
@@ -31,5 +32,6 @@ export class AddMember extends Command {
             .then(async () => {
                 context.send(`👤 Игрок ${hyperLink(await getCurrentNickname(nickname))} успешно добавлен в базу данных!`)
             });
+        installCommands()
     }
 }

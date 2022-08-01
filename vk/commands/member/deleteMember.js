@@ -1,6 +1,7 @@
 import { Command } from '../command';
 import { hyperLink, sceneEnter } from '../../utils';
 import { Member } from '../../../db';
+import { installCommands } from '../../../discord/commands/index.js';
 
 export class DeleteMember extends Command {
 
@@ -23,5 +24,6 @@ export class DeleteMember extends Command {
             .then(() => {
                 context.send(`👤 Игрок ${hyperLink(nickname)} успешно удален из базы данных`)
             });
+        installCommands()
     }
 }
