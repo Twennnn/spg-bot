@@ -3,7 +3,7 @@ import { config } from '../../config';
 
 const { member_role_id, probation_member_role_id } = config;
 
-export async function countMembers() {
+export async function countAllMembers() {
     return Promise.all([
         countRoleMembers(member_role_id),
         countRoleMembers(probation_member_role_id)
