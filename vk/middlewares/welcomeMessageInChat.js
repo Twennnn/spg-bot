@@ -4,7 +4,7 @@ import { client } from '../client';
 
 const { stripIndents } = commonTags;
 
-client.updates.on('chat_invite_user', (context) => {
+client.updates.on(['chat_invite_user', 'chat_invite_user_by_link'], (context) => {
     if (context.isGroup) {
         return;
     }
